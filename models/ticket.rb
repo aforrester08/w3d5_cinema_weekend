@@ -17,9 +17,15 @@ class Ticket
     sql = "INSERT INTO tickets (film_id, customer_id)
       VALUES ($1, $2)
       RETURNING id"
-    values = [$1, $2]
+    values = [@film_id, @customer_id]
     ticket = SqlRunner.run(sql, values).first()
     @id = ticket['id'].to_i()
+  end
+
+  def self.all()
+    sql = "SELECT * FROM tickets"
+    tickets = SqlRunner.run(sql)
+    return tickets.map { |ticket| Ticket.new(ticket) }
   end
 
 end
