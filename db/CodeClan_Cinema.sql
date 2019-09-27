@@ -14,8 +14,8 @@ CREATE TABLE customers (
   funds INT2
 );
 
-CREATE TABLE (
+CREATE TABLE tickets (
   id SERIAL8 PRIMARY KEY,
-  film_id INT8 REFERENCES film(id) ON DELETE CASCADE,
-  customer_id INT8 REFERENCES customer(id) ON DELETE CASCADE
+  film_id INT8 REFERENCES films(id) ON DELETE CASCADE,
+  customer_id INT8 REFERENCES customers(id) ON DELETE CASCADE
 );
