@@ -1,5 +1,8 @@
 require_relative("../db/SqlRunner")
 require_relative("film")
+require_relative("ticket")
+require_relative("screening")
+
 
 class Customer
 
@@ -42,6 +45,14 @@ class Customer
     values = [@id]
     film_hashes = SqlRunner.run(sql, values)
     return film_hashes.map { |film| Film.new(film) }
+  end
+
+  def num_of_tickets()
+    sql = "SELECT * FROM TICKETS
+    WHERE customer_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    return (results.map { |result| Ticket.new(result)}).length()
   end
 
   def self.all()
